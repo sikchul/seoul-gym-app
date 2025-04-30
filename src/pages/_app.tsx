@@ -1,3 +1,3 @@
 import '@/shared/styles/globals.css';
 
-export { default } from '@/apps/providers';
+export { default } from '@/apps/app-provider';

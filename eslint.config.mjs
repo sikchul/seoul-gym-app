@@ -25,6 +25,10 @@ const eslintConfig = [
           }
         }
       ],
+      'import/no-duplicates': ['error'],
+      '@typescript-eslint/consistent-type-imports': ['error', {
+        'prefer': 'type-imports',
+      }],
       quotes: ['error', 'single'],
     },
   },

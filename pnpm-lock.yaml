@@ -20,6 +20,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.49.4
         version: 2.49.4
+      capacitor-kakao-login-plugin:
+        specifier: ^3.0.0
+        version: 3.0.0(@capacitor/core@7.2.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1136,6 +1139,11 @@ packages:
 
   caniuse-lite@1.0.30001715:
     resolution: {integrity: sha512-7ptkFGMm2OAOgvZpwgA4yjQ5SQbrNVGdRjzH0pBdy1Fasvcr+KAeECmbCAECzTuDuoX0FCY8KzUxjf9+9kfZEw==}
+
+  capacitor-kakao-login-plugin@3.0.0:
+    resolution: {integrity: sha512-T+4hFpqCCtYR9XfltodO6b9H6pLI37AheUvvWVW5ag19MMz/LFPQpX1yA5M24fOg4hsgKfhf91aRi00+iNFVJg==}
+    peerDependencies:
+      '@capacitor/core': '>=7.0.0'
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -3512,6 +3520,10 @@ snapshots:
   callsites@3.1.0: {}
 
   caniuse-lite@1.0.30001715: {}
+
+  capacitor-kakao-login-plugin@3.0.0(@capacitor/core@7.2.0):
+    dependencies:
+      '@capacitor/core': 7.2.0
 
   chalk@4.1.2:
     dependencies:
