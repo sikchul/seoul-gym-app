@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from 'react';
 
 interface PropsWithClassName {
-    className?: string;
+  className?: string;
 }
 
-export interface DefaultComponentProps extends PropsWithChildren, PropsWithClassName { }
+export interface DefaultProviderProps extends PropsWithChildren {}
+export interface DefaultComponentProps extends PropsWithChildren, PropsWithClassName {}

@@ -1,15 +1,24 @@
-import { KakaoLoginPlugin } from 'capacitor-kakao-login-plugin';
+import { useAuth } from '@/apps/auth-provider';
+import { Button } from '@/shared/ui';
 
 export default function LoginPage() {
-    const login = async () => {
-        console.log('login');
-        const result = await KakaoLoginPlugin.goLogin();
-        console.log(result);
-    }
-    return (
-        <div>
-            <p>LoginPage</p>
-            <button onClick={login}>Login</button>
-        </div>
-    );
+  const { isAuthenticated, user, signInForKakao, signOut } = useAuth();
+
+  const login = async () => {
+    await signInForKakao();
+  };
+
+  const logout = async () => {
+    await signOut();
+  };
+
+  return (
+    <div>
+      <p>LoginPage</p>
+      <Button onClick={login}>Login</Button>
+      <Button onClick={logout}>Logout</Button>
+      <p>{`isAuthenticated : ${isAuthenticated ? 'true' : 'false'}`}</p>
+      <p>{JSON.stringify(user)}</p>
+    </div>
+  );
 }
