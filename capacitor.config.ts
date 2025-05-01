@@ -9,9 +9,9 @@ const config: CapacitorConfig = {
   ...(isDev && {
     server: {
       url: 'http://10.0.2.2:3000',
-      cleartext: true,
-    },
-  }),
+      cleartext: true
+    }
+  })
 };
 
 export default config;

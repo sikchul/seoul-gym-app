@@ -1,3 +1,3 @@
 export default function FacilityPage() {
-    return <div>FacilityPage</div>;
+  return <div>FacilityPage</div>;
 }

@@ -7,31 +7,39 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: __dirname
 });
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
   {
     rules: {
       'import/order': [
         'error',
         {
-          'groups': ['builtin', 'external', 'internal'],
+          groups: ['builtin', 'external', 'internal'],
           'newlines-between': 'always',
-          'alphabetize': {
-            'order': 'asc',
-            'caseInsensitive': true
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true
           }
         }
       ],
       'import/no-duplicates': ['error'],
-      '@typescript-eslint/consistent-type-imports': ['error', {
-        'prefer': 'type-imports',
-      }],
-      quotes: ['error', 'single'],
-    },
-  },
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports'
+        }
+      ],
+      '@typescript-eslint/no-empty-object-type': [
+        'error',
+        {
+          allowInterfaces: 'with-single-extends'
+        }
+      ]
+    }
+  }
 ];
 
 export default eslintConfig;

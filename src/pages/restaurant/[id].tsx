@@ -1,3 +1,3 @@
 export default function RestaurantPage() {
-    return <div>RestaurantPage</div>;
+  return <div>RestaurantPage</div>;
 }
