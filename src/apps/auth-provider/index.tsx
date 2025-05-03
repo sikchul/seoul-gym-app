@@ -3,10 +3,11 @@ import type { Session, User } from '@supabase/supabase-js';
 import { KakaoLoginPlugin } from 'capacitor-kakao-login-plugin';
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { getUserProfile } from '@/entities/profiles/queries';
 import { supabase } from '@/shared/api/supabase';
-import type { DefaultProviderProps } from '@/shared/type';
+import type { Profile } from '@/shared/type';
 
-interface AuthProviderProps extends DefaultProviderProps {}
+import type { AuthProviderContext, AuthProviderProps } from './types';
 
 const Provider = {
   Kakao: 'kakao'
@@ -14,12 +15,12 @@ const Provider = {
 
 const SessionKey = 'supabase-session';
 
-const AuthProviderContext = createContext<{
-  user: User | null;
-  isAuthenticated: boolean;
-  signInForKakao: () => Promise<void>;
-  signOut: () => Promise<void>;
-}>({ user: null, isAuthenticated: false, signInForKakao: async () => {}, signOut: async () => {} });
+const AuthProviderContext = createContext<AuthProviderContext>({
+  user: null,
+  isAuthenticated: false,
+  signInForKakao: async () => {},
+  signOut: async () => {}
+});
 
 export const useAuth = () => {
   const context = useContext(AuthProviderContext);
@@ -30,7 +31,7 @@ export const useAuth = () => {
 };
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Profile | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const signInForKakao = async () => {
@@ -54,8 +55,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       value: JSON.stringify(data.session)
     });
 
-    setUser(data.user);
-    setIsAuthenticated(true);
+    await updateUserInfo(data.user);
   };
 
   const signOut = async () => {
@@ -68,6 +68,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     await Preferences.remove({ key: SessionKey });
     setUser(null);
     setIsAuthenticated(false);
+  };
+
+  const updateUserInfo = async (user: User) => {
+    const profile = await getUserProfile(user.id);
+
+    if (profile) {
+      setUser(profile);
+      setIsAuthenticated(true);
+    }
   };
 
   const restoreSession = async () => {
@@ -87,10 +96,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       throw new Error(error.message);
     }
 
-    if (data.user) {
-      setUser(data.user);
-      setIsAuthenticated(true);
+    if (!data.user) {
+      throw new Error('User not found');
     }
+
+    await updateUserInfo(data.user);
   };
 
   useEffect(() => {

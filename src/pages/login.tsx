@@ -2,7 +2,7 @@ import { useAuth } from '@/apps/auth-provider';
 import { Button } from '@/shared/ui';
 
 export default function LoginPage() {
-  const { isAuthenticated, user, signInForKakao, signOut } = useAuth();
+  const { isAuthenticated, signInForKakao, signOut } = useAuth();
 
   const login = async () => {
     await signInForKakao();
@@ -18,7 +18,6 @@ export default function LoginPage() {
       <Button onClick={login}>Login</Button>
       <Button onClick={logout}>Logout</Button>
       <p>{`isAuthenticated : ${isAuthenticated ? 'true' : 'false'}`}</p>
-      <p>{JSON.stringify(user)}</p>
     </div>
   );
 }
