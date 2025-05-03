@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-interface PropsWithClassName {
+export interface PropsWithClassName {
   className?: string;
 }
 
