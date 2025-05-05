@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { facilityTypeCardData } from '@/features/about/facility-type-card/model';
-import FacilityTypeCard from '@/features/about/facility-type-card/ui/iindex';
+import FacilityTypeCard from '@/features/about/facility-type-card/ui';
 import { mainFeatureCardData } from '@/features/about/main-feature-card/model';
 import MainFeatureCard from '@/features/about/main-feature-card/ui';
 import { serviceBenefitCardData } from '@/features/about/service-benefit-card/model';
