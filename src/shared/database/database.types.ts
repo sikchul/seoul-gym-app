@@ -188,7 +188,24 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      get_facility_type_view: {
+        Row: {
+          bk_cd_name: string | null
+        }
+        Relationships: []
+      }
+      get_location: {
+        Row: {
+          ar_cd_name: string | null
+        }
+        Relationships: []
+      }
+      get_location_view: {
+        Row: {
+          ar_cd_name: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

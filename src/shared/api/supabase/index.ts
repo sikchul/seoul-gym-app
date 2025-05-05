@@ -1,7 +1,24 @@
 import { createClient } from '@supabase/supabase-js';
+import type { SetNonNullable, MergeDeep } from 'type-fest';
 
 import { ENV } from '@/shared/config/environment';
 
-import type { Database } from '../../database/database.types';
+import type { Database as SupabaseDatabase } from '../../database/database.types';
+
+export type Database = MergeDeep<
+  SupabaseDatabase,
+  {
+    public: {
+      Views: {
+        get_location_view: {
+          Row: SetNonNullable<SupabaseDatabase['public']['Views']['get_location_view']['Row']>;
+        };
+        get_facility_type_view: {
+          Row: SetNonNullable<SupabaseDatabase['public']['Views']['get_facility_type_view']['Row']>;
+        };
+      };
+    };
+  }
+>;
 
 export const supabase = createClient<Database>(ENV.supabase.url, ENV.supabase.anonKey);
