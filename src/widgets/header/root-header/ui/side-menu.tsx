@@ -1,4 +1,14 @@
-import { Menu, Home, User, LogIn, Heart, MessageSquare, Info, Volleyball } from 'lucide-react';
+import {
+  Menu,
+  Home,
+  User,
+  LogIn,
+  Heart,
+  MessageSquare,
+  Info,
+  Volleyball,
+  LogOut
+} from 'lucide-react';
 import { useCallback, useState } from 'react';
 
 import { useAuth } from '@/apps/auth-provider';
@@ -14,12 +24,17 @@ import SideMenuItem from './side-menu-item';
  * @returns 사이드 메뉴
  */
 export default function SideMenu() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, signOut } = useAuth();
   const [open, setOpen] = useState(false);
 
   const handleClose = useCallback(() => {
     setOpen(false);
   }, [setOpen]);
+
+  const handleLogout = useCallback(async () => {
+    await signOut();
+    handleClose();
+  }, [signOut, handleClose]);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -83,6 +98,11 @@ export default function SideMenu() {
                   icon={<MessageSquare className="h-5 w-5" />}
                   label="내 댓글"
                   handleClose={handleClose}
+                />
+                <SideMenuItem
+                  icon={<LogOut className="h-5 w-5" />}
+                  label="로그아웃"
+                  handleClose={handleLogout}
                 />
               </>
             ) : (

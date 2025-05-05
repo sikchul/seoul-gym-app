@@ -1,10 +1,13 @@
 import { Preferences } from '@capacitor/preferences';
 import type { Session, User } from '@supabase/supabase-js';
 import { KakaoLoginPlugin } from 'capacitor-kakao-login-plugin';
+import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { getUserProfile } from '@/entities/profiles/queries';
 import { supabase } from '@/shared/api/supabase';
+import { RoutePath } from '@/shared/constant/route';
+import { generatePath } from '@/shared/lib/route';
 import type { Profile } from '@/shared/type';
 
 import type { AuthProviderContext, AuthProviderProps } from './types';
@@ -31,6 +34,7 @@ export const useAuth = () => {
 };
 
 export default function AuthProvider({ children }: AuthProviderProps) {
+  const router = useRouter();
   const [user, setUser] = useState<Profile | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -56,12 +60,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     });
 
     await updateUserInfo(data.user);
+    router.replace(generatePath(RoutePath.Home));
   };
 
   const signOut = async () => {
     await KakaoLoginPlugin.goLogout();
     await supabase.auth.signOut();
     await clearSession();
+    router.replace(generatePath(RoutePath.Home));
   };
 
   const clearSession = async () => {

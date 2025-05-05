@@ -7,7 +7,7 @@ import { cn } from '@/shared/lib';
 import type { PropsWithClassName } from '@/shared/type';
 
 interface SideMenuItemProps extends PropsWithClassName {
-  href: string;
+  href?: string;
   icon: ReactNode;
   label: string;
   handleClose: () => void;
@@ -22,7 +22,7 @@ interface SideMenuItemProps extends PropsWithClassName {
  * @param handleClose - 닫기 함수
  */
 export default function SideMenuItem({
-  href,
+  href = '#',
   icon,
   label,
   className,
