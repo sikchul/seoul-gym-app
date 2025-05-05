@@ -180,7 +180,8 @@ export default function HomePage() {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {facilityItems.map((facilityItem, index) => {
-          const { ft_idx, ft_title, ar_cd_name, ft_addr, ft_kind_name, images } = facilityItem;
+          const { ft_idx, ft_title, ar_cd_name, ft_addr, ft_kind_name, images, likes } =
+            facilityItem;
           const isLast = index === facilityItems.length - 1;
           return (
             <ResourceListCard
@@ -191,7 +192,7 @@ export default function HomePage() {
               area={ar_cd_name}
               address={ft_addr}
               type={ft_kind_name}
-              likes={0}
+              likes={Number(likes)}
               image={images[0]}
             />
           );

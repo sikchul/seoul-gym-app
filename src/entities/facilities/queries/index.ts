@@ -27,7 +27,7 @@ export const getFacilities = async ({ page, searchTerm, area, type }: RequestFac
   const from = page * ListItemPerPage;
   const to = from + ListItemPerPage - 1;
 
-  let query = supabase.from('facilities').select('*', { count: 'exact' });
+  let query = supabase.from('facilities').select('*, likes:stats->>likes', { count: 'exact' });
 
   if (searchTerm) {
     query = query.or(`ft_title.ilike.%${searchTerm}%,ft_addr.ilike.%${searchTerm}%`);
