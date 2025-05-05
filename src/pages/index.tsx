@@ -90,7 +90,6 @@ export default function HomePage() {
 
   useEffect(() => {
     if (inView && !isFetchingNextPage && hasNextPage) {
-      console.log(inView, isFetchingNextPage, hasNextPage);
       fetchNextPage();
     }
   }, [inView, isFetchingNextPage, hasNextPage, fetchNextPage]);
