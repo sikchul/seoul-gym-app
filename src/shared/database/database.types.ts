@@ -43,6 +43,13 @@ export type Database = {
             referencedColumns: ["ft_idx"]
           },
           {
+            foreignKeyName: "comments_ft_idx_facilities_ft_idx_fk"
+            columns: ["ft_idx"]
+            isOneToOne: false
+            referencedRelation: "get_facility_detail_view"
+            referencedColumns: ["ft_idx"]
+          },
+          {
             foreignKeyName: "comments_profile_id_profiles_profile_id_fk"
             columns: ["profile_id"]
             isOneToOne: false
@@ -151,6 +158,13 @@ export type Database = {
             referencedColumns: ["ft_idx"]
           },
           {
+            foreignKeyName: "facility_likes_ft_idx_facilities_ft_idx_fk"
+            columns: ["ft_idx"]
+            isOneToOne: false
+            referencedRelation: "get_facility_detail_view"
+            referencedColumns: ["ft_idx"]
+          },
+          {
             foreignKeyName: "facility_likes_profile_id_profiles_profile_id_fk"
             columns: ["profile_id"]
             isOneToOne: false
@@ -188,6 +202,90 @@ export type Database = {
       }
     }
     Views: {
+      get_facility_detail_view: {
+        Row: {
+          ar_cd_name: string | null
+          bk_cd_name: string | null
+          ft_addr: string | null
+          ft_addr_detail: string | null
+          ft_bigo: string | null
+          ft_homepage: string | null
+          ft_idx: number | null
+          ft_info_time: string | null
+          ft_kind_name: string | null
+          ft_money: string | null
+          ft_operation_name: string | null
+          ft_org: string | null
+          ft_park: string | null
+          ft_phone: string | null
+          ft_post: string | null
+          ft_si: string | null
+          ft_size: string | null
+          ft_title: string | null
+          ft_wd_time: string | null
+          ft_we_time: string | null
+          images: string[] | null
+          is_liked: boolean | null
+          likes: string | null
+          rt_cd_name: string | null
+          stats: Json | null
+        }
+        Insert: {
+          ar_cd_name?: string | null
+          bk_cd_name?: string | null
+          ft_addr?: string | null
+          ft_addr_detail?: string | null
+          ft_bigo?: string | null
+          ft_homepage?: string | null
+          ft_idx?: number | null
+          ft_info_time?: string | null
+          ft_kind_name?: string | null
+          ft_money?: string | null
+          ft_operation_name?: string | null
+          ft_org?: string | null
+          ft_park?: string | null
+          ft_phone?: string | null
+          ft_post?: string | null
+          ft_si?: string | null
+          ft_size?: string | null
+          ft_title?: string | null
+          ft_wd_time?: string | null
+          ft_we_time?: string | null
+          images?: string[] | null
+          is_liked?: never
+          likes?: never
+          rt_cd_name?: string | null
+          stats?: Json | null
+        }
+        Update: {
+          ar_cd_name?: string | null
+          bk_cd_name?: string | null
+          ft_addr?: string | null
+          ft_addr_detail?: string | null
+          ft_bigo?: string | null
+          ft_homepage?: string | null
+          ft_idx?: number | null
+          ft_info_time?: string | null
+          ft_kind_name?: string | null
+          ft_money?: string | null
+          ft_operation_name?: string | null
+          ft_org?: string | null
+          ft_park?: string | null
+          ft_phone?: string | null
+          ft_post?: string | null
+          ft_si?: string | null
+          ft_size?: string | null
+          ft_title?: string | null
+          ft_wd_time?: string | null
+          ft_we_time?: string | null
+          images?: string[] | null
+          is_liked?: never
+          likes?: never
+          rt_cd_name?: string | null
+          stats?: Json | null
+        }
+        Relationships: []
+      }
       get_facility_type_view: {
         Row: {
           bk_cd_name: string | null

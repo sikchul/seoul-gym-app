@@ -16,6 +16,11 @@ export type Database = MergeDeep<
         get_facility_type_view: {
           Row: SetNonNullable<SupabaseDatabase['public']['Views']['get_facility_type_view']['Row']>;
         };
+        get_facility_detail_view: {
+          Row: SetNonNullable<
+            SupabaseDatabase['public']['Views']['get_facility_detail_view']['Row']
+          >;
+        };
       };
     };
   }
