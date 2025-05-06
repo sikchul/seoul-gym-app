@@ -19,7 +19,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <data android:host="kakaolink" android:scheme="${kakaoScheme}" />
             </intent-filter>
         </activity>
 
@@ -31,6 +30,7 @@
 
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
                 <data android:host="oauth" android:scheme="${kakaoScheme}" />
+                <data android:host="kakaolink" android:scheme="${kakaoScheme}" />
             </intent-filter>
         </activity>
 
