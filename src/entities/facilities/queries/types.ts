@@ -4,3 +4,7 @@ export interface RequestFacilitiesParams {
   area?: string;
   type?: string;
 }
+
+export interface RequestFacilityDetailParams {
+  ft_idx: number;
+}

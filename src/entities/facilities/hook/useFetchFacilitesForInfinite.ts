@@ -4,13 +4,13 @@ import { ListItemPerPage } from '../constant';
 import { FacilityQueryKey } from '../constant/queryKey';
 import { getFacilities } from '../queries';
 import type { RequestFacilitiesParams } from '../queries/types';
-interface UseFetchFacilitesForInfiniteProps extends Omit<RequestFacilitiesParams, 'page'> {}
+interface UseFetchFacilitesForInfiniteParams extends Omit<RequestFacilitiesParams, 'page'> {}
 
 export const useFetchFacilitesForInfinite = ({
   searchTerm,
   area,
   type
-}: UseFetchFacilitesForInfiniteProps) => {
+}: UseFetchFacilitesForInfiniteParams) => {
   return useInfiniteQuery({
     queryKey: FacilityQueryKey.fetchFacilitiesForInfinite({ searchTerm, area, type }),
     queryFn: async ({ pageParam = 0 }) => {

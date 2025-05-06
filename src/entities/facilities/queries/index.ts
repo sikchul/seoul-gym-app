@@ -1,7 +1,7 @@
 import { supabase } from '@/shared/api/supabase';
 
 import { DefaultAllSelectKey, ListItemPerPage } from '../constant';
-import type { RequestFacilitiesParams } from './types';
+import type { RequestFacilitiesParams, RequestFacilityDetailParams } from './types';
 
 export const getLocations = async () => {
   const { data, error } = await supabase.from('get_location_view').select('*');
@@ -51,4 +51,18 @@ export const getFacilities = async ({ page, searchTerm, area, type }: RequestFac
     items: data,
     totalCount: count ?? 0
   };
+};
+
+export const getFacilityDetail = async ({ ft_idx }: RequestFacilityDetailParams) => {
+  const { data, error } = await supabase
+    .from('get_facility_detail_view')
+    .select('*')
+    .eq('ft_idx', ft_idx)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 };
