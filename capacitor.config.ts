@@ -4,7 +4,7 @@ const isDev = process.env.BUILD_MODE === 'dev';
 
 const config: CapacitorConfig = {
   appId: 'com.seoul.gym.app',
-  appName: 'seoul-gym-app',
+  appName: '서울 스포츠',
   webDir: 'out',
   ...(isDev && {
     server: {

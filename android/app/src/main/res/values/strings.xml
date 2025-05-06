@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">seoul-gym-app</string>
-    <string name="title_activity_main">seoul-gym-app</string>
+    <string name="app_name">서울 스포츠</string>
+    <string name="title_activity_main">서울 스포츠</string>
     <string name="package_name">com.seoul.gym.app</string>
     <string name="custom_url_scheme">com.seoul.gym.app</string>
 </resources>

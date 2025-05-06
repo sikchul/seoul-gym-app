@@ -10,12 +10,14 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:typegen": "dotenv -e .env -- bash -c 'supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > ./src/shared/database/database.types.ts'",
+    "run:generate-icon": "npx @capacitor/assets generate --assetPath=./public/resources",
     "run:dev-sync": "exec cap copy & BUILD_MODE=dev exec cap sync",
     "run:prod-sync": "exec cap copy & BUILD_MODE=prod exec cap sync",
     "run:android": "exec cap open android"
   },
   "dependencies": {
     "@capacitor/android": "^7.2.0",
+    "@capacitor/app": "^7.0.1",
     "@capacitor/core": "^7.2.0",
     "@capacitor/preferences": "^7.0.1",
     "@radix-ui/react-alert-dialog": "^1.1.13",
@@ -40,6 +42,7 @@
     "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.2.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
