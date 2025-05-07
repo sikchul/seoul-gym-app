@@ -216,6 +216,49 @@ export type Database = {
       }
     }
     Views: {
+      get_facility_comment_view: {
+        Row: {
+          avatar: string | null
+          comment: string | null
+          comment_id: number | null
+          created_at: string | null
+          ft_idx: number | null
+          is_my_comment: boolean | null
+          nickname: string | null
+          profile_id: string | null
+          updated_at: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_ft_idx_facilities_ft_idx_fk"
+            columns: ["ft_idx"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["ft_idx"]
+          },
+          {
+            foreignKeyName: "comments_ft_idx_facilities_ft_idx_fk"
+            columns: ["ft_idx"]
+            isOneToOne: false
+            referencedRelation: "get_facility_detail_view"
+            referencedColumns: ["ft_idx"]
+          },
+          {
+            foreignKeyName: "comments_ft_idx_facilities_ft_idx_fk"
+            columns: ["ft_idx"]
+            isOneToOne: false
+            referencedRelation: "get_facility_list_view"
+            referencedColumns: ["ft_idx"]
+          },
+          {
+            foreignKeyName: "comments_profile_id_profiles_profile_id_fk"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["profile_id"]
+          },
+        ]
+      }
       get_facility_detail_view: {
         Row: {
           ar_cd_name: string | null

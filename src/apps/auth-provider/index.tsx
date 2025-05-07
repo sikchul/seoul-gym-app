@@ -1,5 +1,6 @@
 import { Preferences } from '@capacitor/preferences';
 import type { Session, User } from '@supabase/supabase-js';
+import { useQueryClient } from '@tanstack/react-query';
 import { KakaoLoginPlugin } from 'capacitor-kakao-login-plugin';
 import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -34,6 +35,7 @@ export const useAuth = () => {
 };
 
 export default function AuthProvider({ children }: AuthProviderProps) {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [user, setUser] = useState<Profile | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,6 +69,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     await KakaoLoginPlugin.goLogout();
     await supabase.auth.signOut();
     await clearSession();
+    queryClient.clear();
     router.replace(generatePath(RoutePath.Home));
   };
 
@@ -82,6 +85,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     if (profile) {
       setUser(profile);
       setIsAuthenticated(true);
+      queryClient.clear();
     }
   };
 

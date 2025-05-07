@@ -1,6 +1,6 @@
 import { Heart, MapPin, Phone, Tag, Info } from 'lucide-react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useAuth } from '@/apps/auth-provider';
 import { useFetchFacilityDetail } from '@/entities/facilities/hook/useFetchFacilityDetail';
@@ -11,25 +11,6 @@ import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card';
 
-const mockComments = [
-  {
-    id: 1,
-    user: '홍길동',
-    text: '시설이 깨끗하고 좋아요!',
-    isMyComment: true,
-    createdAt: '2023-05-15T09:24:00Z',
-    userAvatar: '/placeholder.svg?height=40&width=40'
-  },
-  {
-    id: 2,
-    user: '김철수',
-    text: '주차 공간이 넓어서 편리합니다.',
-    isMyComment: false,
-    createdAt: '2023-05-14T14:30:00Z',
-    userAvatar: '/placeholder.svg?height=40&width=40'
-  }
-];
-
 export default function FacilityPage() {
   const { isAuthenticated, user } = useAuth();
   const router = useRouter();
@@ -38,6 +19,13 @@ export default function FacilityPage() {
   const { mutate: toggleFacilityLike, isPending: isLikeLoading } = useMutateFacilityLike();
   const [likes, setLikes] = useState(Number(facility?.likes) || 0);
   const [isLiked, setIsLiked] = useState(facility?.is_liked || false);
+
+  useEffect(() => {
+    if (facility) {
+      setLikes(Number(facility.likes));
+      setIsLiked(facility.is_liked);
+    }
+  }, [facility]);
 
   if (!facility) {
     return <div className="container mx-auto p-4 pt-20 text-center">시설을 찾을 수 없습니다.</div>;
@@ -110,7 +98,7 @@ export default function FacilityPage() {
           </div>
         </CardContent>
       </Card>
-      <FacilityDetailCommentSection facilityId={Number(id)} initialComments={mockComments} />
+      <FacilityDetailCommentSection facilityId={Number(id)} />
     </div>
   );
 }

@@ -1,3 +1,7 @@
 export * from './useFetchFacilitesForInfinite';
 export * from './useFetchFacilityTypes';
 export * from './useFetchLocations';
+export * from './useFetchFacilityComments';
+export * from './useMutateFacilityLike';
+export * from './useMutateFacilityComment';
+export * from './useDeleteFacilityComment';

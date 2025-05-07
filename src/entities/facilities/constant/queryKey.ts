@@ -5,5 +5,6 @@ export const FacilityQueryKey = {
     ['fetchFacilitiesForInfinite', { ...params }] as const,
   fetchFacilityType: ['fetchFacilityType'] as const,
   fetchLocations: ['fetchLocations'] as const,
-  fetchFacilityDetail: (ft_idx: number) => ['fetchFacilityDetail', { ft_idx }] as const
+  fetchFacilityDetail: (ft_idx: number) => ['fetchFacilityDetail', { ft_idx }] as const,
+  fetchFacilityComments: (ft_idx: number) => ['fetchFacilityComments', { ft_idx }] as const
 };

@@ -8,3 +8,7 @@ export interface RequestFacilitiesParams {
 export interface RequestFacilityDetailParams {
   ft_idx: number;
 }
+
+export interface RequestFacilityCommentsParams {
+  ft_idx: number;
+}
