@@ -19,10 +19,11 @@ interface FacilityDetailImageSliderProps {
 
 export function FacilityDetailImageSlider({ facility }: FacilityDetailImageSliderProps) {
   const [api, setApi] = useState<CarouselApi>();
+  const facilityImages = facility.images ?? [];
   return (
     <Carousel setApi={setApi} className="w-full">
       <CarouselContent>
-        {facility.images.map((image, index) => (
+        {facilityImages.map((image, index) => (
           <CarouselItem key={index}>
             <div className="relative h-64 w-full">
               <Image
@@ -36,7 +37,7 @@ export function FacilityDetailImageSlider({ facility }: FacilityDetailImageSlide
           </CarouselItem>
         ))}
       </CarouselContent>
-      {facility.images.length > 1 && (
+      {facilityImages.length > 1 && (
         <>
           <CarouselPrevious
             className="bg-white/80 backdrop-blur-sm border-none hover:bg-white/90"
@@ -47,7 +48,7 @@ export function FacilityDetailImageSlider({ facility }: FacilityDetailImageSlide
             aria-label="다음 이미지"
           />
           <div className="absolute bottom-2 left-0 right-0 z-10">
-            <CarouselIndicators api={api} count={facility.images.length} />
+            <CarouselIndicators api={api} count={facilityImages.length} />
           </div>
         </>
       )}
