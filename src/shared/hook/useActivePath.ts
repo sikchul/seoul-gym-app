@@ -11,7 +11,7 @@ export const useActivePath = () => {
   const isActivePath = useCallback(
     (path: string) => {
       if (path === '/') return router.pathname === path;
-      return router.pathname?.startsWith(path);
+      return router.pathname === path;
     },
     [router.pathname]
   );

@@ -6,4 +6,5 @@ export interface AuthProviderContext {
   isAuthenticated: boolean;
   signInForKakao: () => Promise<void>;
   signOut: () => Promise<void>;
+  updateProfileInfo: (profileId: string) => Promise<void>;
 }

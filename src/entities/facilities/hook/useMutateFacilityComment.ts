@@ -13,6 +13,9 @@ export const useMutateFacilityComment = () => {
       queryClient.invalidateQueries({
         queryKey: FacilityQueryKey.fetchFacilityComments(ft_idx)
       });
+      queryClient.removeQueries({
+        queryKey: FacilityQueryKey.fetchUserComments
+      });
     }
   });
 };

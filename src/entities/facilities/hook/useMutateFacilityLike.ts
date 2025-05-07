@@ -8,12 +8,15 @@ export const useMutateFacilityLike = () => {
 
   return useMutation({
     mutationFn: toggleFacilityLike,
-    onSettled: (_, __, { facilityId }) => {
+    onSettled: (_, __, { facilityId, userId }) => {
       queryClient.invalidateQueries({
         queryKey: FacilityQueryKey.fetchFacilityDetail(Number(facilityId))
       });
       queryClient.removeQueries({
         queryKey: FacilityQueryKey.fetchFacilitiesForInfinite({})
+      });
+      queryClient.removeQueries({
+        queryKey: FacilityQueryKey.fetchLikedFacilities(String(userId))
       });
     }
   });

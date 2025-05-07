@@ -88,13 +88,13 @@ export default function SideMenu() {
                   handleClose={handleClose}
                 />
                 <SideMenuItem
-                  href="/profile?tab=likes"
+                  href="/profile/likes"
                   icon={<Heart className="h-5 w-5" />}
                   label="좋아요한 시설"
                   handleClose={handleClose}
                 />
                 <SideMenuItem
-                  href="/profile?tab=comments"
+                  href="/profile/comments"
                   icon={<MessageSquare className="h-5 w-5" />}
                   label="내 댓글"
                   handleClose={handleClose}

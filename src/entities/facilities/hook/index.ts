@@ -5,3 +5,5 @@ export * from './useFetchFacilityComments';
 export * from './useMutateFacilityLike';
 export * from './useMutateFacilityComment';
 export * from './useDeleteFacilityComment';
+export * from './useFetchLikedFacilities';
+export * from './useFetchUserComments';

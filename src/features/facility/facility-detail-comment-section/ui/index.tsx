@@ -38,19 +38,16 @@ export function FacilityDetailCommentSection({ facilityId }: FacilityDetailComme
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
 
   const handleAddComment = () => {
-    // 최대 길이 제한
     if (newComment.length > 1000) {
       toast.error('댓글은 1000자를 초과할 수 없습니다.');
       return;
     }
 
-    // 빈 문자열 체크
     if (!newComment.trim()) {
       toast.error('댓글 내용을 입력해주세요.');
       return;
     }
 
-    // 특수문자 필터링
     const sanitizedComment = newComment.replace(/[<>]/g, '');
 
     createFacilityComment({

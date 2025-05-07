@@ -84,3 +84,40 @@ export const getFacilityComments = async ({ ft_idx }: RequestFacilityCommentsPar
 
   return data;
 };
+
+export const getLikedFacilities = async ({ profileId }: { profileId: string }) => {
+  const { data, error } = await supabase
+    .from('facility_likes')
+    .select(
+      `
+      ft_idx,
+      get_facility_list_view!inner(*)
+    `,
+      { count: 'exact' }
+    )
+    .eq('profile_id', profileId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data?.map((item) => item.get_facility_list_view) ?? [];
+};
+
+export const getUserComments = async () => {
+  const { data, error } = await supabase
+    .from('get_facility_comment_view')
+    .select(
+      `
+      *,
+      facilities!inner(ft_title)
+    `
+    )
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};

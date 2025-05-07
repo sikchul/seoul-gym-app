@@ -12,6 +12,9 @@ export const useDeleteFacilityComment = () => {
       queryClient.invalidateQueries({
         queryKey: FacilityQueryKey.fetchFacilityComments(ft_idx)
       });
+      queryClient.removeQueries({
+        queryKey: FacilityQueryKey.fetchUserComments
+      });
     }
   });
 };

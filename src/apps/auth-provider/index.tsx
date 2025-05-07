@@ -23,7 +23,8 @@ const AuthProviderContext = createContext<AuthProviderContext>({
   user: null,
   isAuthenticated: false,
   signInForKakao: async () => {},
-  signOut: async () => {}
+  signOut: async () => {},
+  updateProfileInfo: async () => {}
 });
 
 export const useAuth = () => {
@@ -89,6 +90,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  const updateProfileInfo = async (profileId: string) => {
+    const profile = await getUserProfile(profileId);
+    if (profile) {
+      setUser(profile);
+      setIsAuthenticated(true);
+    }
+  };
+
   const restoreSession = async () => {
     const { value } = await Preferences.get({ key: SessionKey });
 
@@ -118,7 +127,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   return (
-    <AuthProviderContext.Provider value={{ user, isAuthenticated, signInForKakao, signOut }}>
+    <AuthProviderContext.Provider
+      value={{ user, isAuthenticated, signInForKakao, signOut, updateProfileInfo }}
+    >
       {children}
     </AuthProviderContext.Provider>
   );
