@@ -2,9 +2,11 @@ import { Heart, MapPin, Phone, Tag, Info } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import { useAuth } from '@/apps/auth-provider';
 import { useFetchFacilityDetail } from '@/entities/facilities/hook/useFetchFacilityDetail';
+import { useMutateFacilityLike } from '@/entities/facilities/hook/useMutateFacilityLike';
 import { FacilityDetailCommentSection } from '@/features/facility/facility-detail-comment-section/ui';
-import { ImageSlider } from '@/features/facility/facility-detail-image-slider/ui';
+import { FacilityDetailImageSlider } from '@/features/facility/facility-detail-image-slider/ui';
 import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card';
@@ -29,9 +31,11 @@ const mockComments = [
 ];
 
 export default function FacilityPage() {
+  const { isAuthenticated, user } = useAuth();
   const router = useRouter();
   const { id } = router.query;
   const { data: facility } = useFetchFacilityDetail({ ft_idx: Number(id) });
+  const { mutate: toggleFacilityLike, isPending: isLikeLoading } = useMutateFacilityLike();
   const [likes, setLikes] = useState(Number(facility?.likes) || 0);
   const [isLiked, setIsLiked] = useState(facility?.is_liked || false);
 
@@ -40,21 +44,27 @@ export default function FacilityPage() {
   }
 
   const handleLike = () => {
-    setLikes(isLiked ? likes - 1 : likes + 1);
-    setIsLiked(!isLiked);
+    if (isAuthenticated) {
+      setLikes(isLiked ? likes - 1 : likes + 1);
+      setIsLiked(!isLiked);
+      toggleFacilityLike({ facilityId: String(id), userId: String(user?.profile_id) });
+    } else {
+      router.push('/login');
+    }
   };
 
   return (
     <div className="container mx-auto p-4 space-y-6">
       <Card className="overflow-hidden">
         <div className="relative">
-          <ImageSlider images={facility.images} />
+          <FacilityDetailImageSlider facility={facility} />
           <Button
             variant="outline"
             size="icon"
             className={`absolute top-4 right-4 rounded-full bg-white/80 backdrop-blur-sm ${
               isLiked ? 'text-red-500 border-red-200' : 'text-gray-600 border-gray-200'
             }`}
+            disabled={isLikeLoading}
             onClick={handleLike}
           >
             <Heart className={`h-5 w-5 ${isLiked ? 'fill-red-500' : ''}`} />
