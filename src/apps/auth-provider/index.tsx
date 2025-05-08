@@ -1,5 +1,6 @@
 import { Preferences } from '@capacitor/preferences';
 import type { Session, User } from '@supabase/supabase-js';
+import { AuthError } from '@supabase/supabase-js';
 import { useQueryClient } from '@tanstack/react-query';
 import { KakaoLoginPlugin } from 'capacitor-kakao-login-plugin';
 import { useRouter } from 'next/router';
@@ -112,6 +113,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     });
 
     if (error) {
+      if (error instanceof AuthError && error.code === 'refresh_token_already_used') {
+        await clearSession();
+        return;
+      }
       throw new Error(error.message);
     }
 

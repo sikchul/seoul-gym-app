@@ -8,5 +8,6 @@ export const FacilityQueryKey = {
   fetchFacilityDetail: (ft_idx: number) => ['fetchFacilityDetail', { ft_idx }] as const,
   fetchFacilityComments: (ft_idx: number) => ['fetchFacilityComments', { ft_idx }] as const,
   fetchLikedFacilities: (profileId: string) => ['fetchLikedFacilities', { profileId }] as const,
-  fetchUserComments: ['fetchUserComments'] as const
+  fetchUserComments: ['fetchUserComments'] as const,
+  fetchRestaurants: (address: string) => ['fetchRestaurants', { address }] as const
 };
