@@ -65,6 +65,42 @@ export type Database = {
           },
         ]
       }
+      educations: {
+        Row: {
+          created_at: string
+          id: number
+          keywords: string[]
+          subject: string
+          subtitle: string
+          title: string
+          topic: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id: number
+          keywords?: string[]
+          subject?: string
+          subtitle?: string
+          title?: string
+          topic?: string
+          updated_at?: string
+          url?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          keywords?: string[]
+          subject?: string
+          subtitle?: string
+          title?: string
+          topic?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       facilities: {
         Row: {
           ar_cd_name: string
@@ -216,6 +252,12 @@ export type Database = {
       }
     }
     Views: {
+      get_education_type_view: {
+        Row: {
+          topic: string | null
+        }
+        Relationships: []
+      }
       get_facility_comment_view: {
         Row: {
           avatar: string | null

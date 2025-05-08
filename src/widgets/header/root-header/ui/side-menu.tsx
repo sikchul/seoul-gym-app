@@ -7,7 +7,8 @@ import {
   MessageSquare,
   Info,
   Volleyball,
-  LogOut
+  LogOut,
+  BookOpen
 } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
@@ -80,6 +81,12 @@ export default function SideMenu() {
               href="/"
               icon={<Home className="h-5 w-5" />}
               label="홈"
+              handleClose={handleClose}
+            />
+            <SideMenuItem
+              href="/educations"
+              icon={<BookOpen className="h-5 w-5" />}
+              label="교육 자료"
               handleClose={handleClose}
             />
 
