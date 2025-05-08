@@ -1,4 +1,4 @@
-import { ExternalLink, MapPin, Phone } from 'lucide-react';
+import { ExternalLink, LandPlot, MapPin, Phone } from 'lucide-react';
 
 import type { Restaurant } from '@/entities/restaurants/queries/types';
 import { Card, CardContent } from '@/shared/ui/card';
@@ -10,7 +10,8 @@ export default function RestaurantListCard({
   address_name,
   category_name,
   place_url,
-  phone
+  phone,
+  distance
 }: RestaurantListCardProps) {
   return (
     <a
@@ -36,6 +37,12 @@ export default function RestaurantListCard({
           <div className="flex items-start gap-2">
             <MapPin className="h-3.5 w-3.5 text-blue-600 mt-0.5 flex-shrink-0" />
             <p className="text-xs text-gray-700 line-clamp-2">{address_name || '-'}</p>
+          </div>
+          <div className="flex items-start gap-2">
+            <LandPlot className="h-3.5 w-3.5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <p className="text-xs text-gray-700 line-clamp-2">
+              {distance ? `${distance}m 근처` : '-'}
+            </p>
           </div>
         </CardContent>
       </Card>

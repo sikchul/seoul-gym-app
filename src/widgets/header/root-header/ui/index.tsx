@@ -26,7 +26,7 @@ export default function RootHeader({ className }: RootHeaderProps) {
   return (
     <header
       className={cn(
-        'bg-gradient-to-r from-blue-700 to-blue-500 text-white fixed top-0 left-0 right-0 z-50 shadow-md',
+        'bg-gradient-to-r from-blue-700 to-blue-500 text-white fixed top-0 left-0 right-0 z-50 shadow-md safe-area-top-padding',
         className
       )}
     >

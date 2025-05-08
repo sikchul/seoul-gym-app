@@ -44,9 +44,17 @@ export default function SideMenu() {
           <span className="sr-only">메뉴 열기</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 max-w-[300px] border-r-blue-100">
+      <SheetContent
+        side="left"
+        className="[&>button:first-of-type]:hidden p-0 max-w-[300px] border-r-blue-100"
+      >
         <div className="flex flex-col h-full">
-          <SheetHeader className="text-left p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+          <SheetHeader
+            style={{
+              paddingTop: `var(--safe-area-inset-top)`
+            }}
+            className="text-left p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white"
+          >
             <div className="flex items-center gap-3">
               <Volleyball className="h-6 w-6" />
               <SheetTitle className="text-white">서울 스포츠</SheetTitle>

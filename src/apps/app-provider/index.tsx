@@ -1,8 +1,10 @@
+import { initialize } from '@capacitor-community/safe-area';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { type ReactNode, type ReactElement, useState } from 'react';
+import Head from 'next/head';
+import { type ReactNode, type ReactElement, useState, useEffect } from 'react';
 
 import AuthProvider from '@/apps/auth-provider';
 import { RootLayout } from '@/widgets/layout/root-layout';
@@ -32,11 +34,20 @@ export default function AppProvider({ Component, pageProps }: AppPropsWithLayout
   );
   const getLayout = Component.getLayout ?? ((page) => <RootLayout>{page}</RootLayout>);
 
+  useEffect(() => {
+    initialize();
+  }, []);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
-      <CapacitorBackButtonHandler />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
+        <CapacitorBackButtonHandler />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </>
   );
 }

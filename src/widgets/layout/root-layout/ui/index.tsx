@@ -9,7 +9,7 @@ export default function RootLayout({ className, children }: RootLayoutProps) {
   return (
     <div className={cn('flex flex-col', className)}>
       <RootHeader />
-      <main className="flex-1 pt-16">{children}</main>
+      <main className="flex-1 pt-16 safe-area-margin">{children}</main>
       <Toaster />
     </div>
   );
