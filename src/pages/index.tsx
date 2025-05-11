@@ -1,7 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Search, MapPin, Tag, X } from 'lucide-react';
+import { useRouter } from 'next/router';
 import type React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { FacilityQueryKey } from '@/entities/facilities/constant/queryKey';
@@ -17,12 +18,13 @@ import FacilitySearchInput from '@/features/facility/facility-search-input/ui';
 import ResourceListCard from '@/shared/service-ui/resource-list-card';
 import ResourceListSkeleton from '@/shared/service-ui/resource-list-skeleton';
 import { Button } from '@/shared/ui/button';
-
 export default function HomePage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [appliedSearchTerm, setAppliedSearchTerm] = useState('');
-  const [selectedArea, setSelectedArea] = useState('');
-  const [selectedType, setSelectedType] = useState('');
+  const router = useRouter();
+  const query = useMemo(() => router.query, [router.query]);
+  const [searchTerm, setSearchTerm] = useState((query.q as string) || '');
+  const [appliedSearchTerm, setAppliedSearchTerm] = useState((query.q as string) || '');
+  const [selectedArea, setSelectedArea] = useState((query.area as string) || '');
+  const [selectedType, setSelectedType] = useState((query.type as string) || '');
 
   const { data: locations = [], isLoading: isLoadingLocations } = useFetchLocations();
   const { data: facilityTypes = [], isLoading: isLoadingFacilityTypes } = useFetchFacilityTypes();
@@ -62,6 +64,13 @@ export default function HomePage() {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setAppliedSearchTerm(searchTerm);
+    router.replace({
+      pathname: '/',
+      query: {
+        ...query,
+        q: searchTerm
+      }
+    });
   };
 
   const resetFilters = () => {
@@ -70,22 +79,58 @@ export default function HomePage() {
     setSelectedArea('');
     setSelectedType('');
     removeAllFacilityQueries({ searchTerm: '', area: '', type: '' });
+    router.replace('/');
   };
 
   const clearSearch = () => {
     setSearchTerm('');
     setAppliedSearchTerm('');
-    removeAllFacilityQueries({ searchTerm: '' });
+    removeAllFacilityQueries({ searchTerm: '', area: '', type: '' });
+    delete query.q;
+    router.replace({
+      pathname: '/',
+      query
+    });
   };
 
   const handleAreaChange = (value: string) => {
     setSelectedArea(value);
     removeAllFacilityQueries({ area: value });
+    if (!value) {
+      delete query.area;
+      router.replace({
+        pathname: '/',
+        query
+      });
+    } else {
+      router.replace({
+        pathname: '/',
+        query: {
+          ...query,
+          area: value
+        }
+      });
+    }
   };
 
   const handleTypeChange = (value: string) => {
     setSelectedType(value);
     removeAllFacilityQueries({ type: value });
+    if (!value) {
+      delete query.type;
+      router.replace({
+        pathname: '/',
+        query
+      });
+    } else {
+      router.replace({
+        pathname: '/',
+        query: {
+          ...query,
+          type: value
+        }
+      });
+    }
   };
 
   useEffect(() => {
@@ -93,6 +138,19 @@ export default function HomePage() {
       fetchNextPage();
     }
   }, [inView, isFetchingNextPage, hasNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    if (query.q) {
+      setSearchTerm(query.q as string);
+      setAppliedSearchTerm(query.q as string);
+    }
+    if (query.area) {
+      setSelectedArea(query.area as string);
+    }
+    if (query.type) {
+      setSelectedType(query.type as string);
+    }
+  }, [query.q, query.area, query.type]);
 
   return (
     <div className="container mx-auto px-4 py-6 space-y-6">

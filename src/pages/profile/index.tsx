@@ -1,10 +1,13 @@
+import { useRouter } from 'next/router';
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import type { NextPageWithLayout } from '@/apps/app-provider';
 import { useAuth } from '@/apps/auth-provider';
 import { useMutateProfile } from '@/entities/profiles/hook';
+import { RoutePath } from '@/shared/constant';
+import { generatePath } from '@/shared/lib';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card';
 import { Input } from '@/shared/ui/input';
@@ -12,9 +15,19 @@ import { ProfileLayout } from '@/widgets/layout/profile-layout';
 import { RootLayout } from '@/widgets/layout/root-layout';
 
 const ProfilePage: NextPageWithLayout = () => {
+  const router = useRouter();
   const { user } = useAuth();
   const [name, setName] = useState(user?.nickname || '');
   const { mutate: updateProfile } = useMutateProfile();
+
+  useEffect(() => {
+    if (!user) {
+      setTimeout(() => {
+        toast.error('로그인이 필요합니다.');
+        router.replace(generatePath(RoutePath.Login));
+      }, 0);
+    }
+  }, [user, router]);
 
   const handleUpdateProfile = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -23,6 +23,10 @@ export default function RootHeader({ className }: RootHeaderProps) {
   const { isAuthenticated, user } = useAuth();
   const isHome = router.pathname === '/';
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <header
       className={cn(
@@ -33,7 +37,11 @@ export default function RootHeader({ className }: RootHeaderProps) {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center min-h-16">
         <div className="flex items-center gap-3">
           {!isHome && <HeaderBackButton />}
-          <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <Link
+            href="/"
+            className="flex items-center gap-2 hover:opacity-90 transition-opacity pointer-events-none"
+            onClick={handleClick}
+          >
             <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
               <Volleyball className="h-6 w-6" />
             </div>
