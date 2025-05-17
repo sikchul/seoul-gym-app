@@ -29,7 +29,9 @@ interface FacilityDetailCommentSectionProps {
 
 export function FacilityDetailCommentSection({ facilityId }: FacilityDetailCommentSectionProps) {
   const { isAuthenticated, user } = useAuth();
-  const { data: comments = [] } = useFetchFacilityComments({ ft_idx: Number(facilityId) });
+  const { data: comments = [] } = useFetchFacilityComments({
+    ft_idx: Number(facilityId)
+  });
   const { mutate: createFacilityComment, isPending: isCreateCommentLoading } =
     useMutateFacilityComment();
   const { mutate: deleteFacilityComment, isPending: isDeleteCommentLoading } =

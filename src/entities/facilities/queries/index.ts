@@ -73,7 +73,7 @@ export const getFacilityDetail = async ({ ft_idx }: RequestFacilityDetailParams)
 
 export const getFacilityComments = async ({ ft_idx }: RequestFacilityCommentsParams) => {
   const { data, error } = await supabase
-    .from('get_facility_comment_view')
+    .from('get_target_facility_comment_view')
     .select('*')
     .eq('ft_idx', ft_idx)
     .order('created_at', { ascending: false });
